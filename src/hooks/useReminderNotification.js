@@ -1,45 +1,31 @@
 import { useEffect } from "react";
-import { remote } from "electron";
 import { useItems } from "../AppContext";
-
-function getTimeCondition(nd) {
-  let condition = false;
-
-  switch (remote.getGlobal("notificationSettings").reminderNotification) {
-    case "hour":
-      condition = nd.getMinutes() === 0 && nd.getSeconds() === 0;
-      break;
-    case "halfhour":
-      condition = nd.getMinutes() % 30 === 0 && nd.getSeconds() === 0;
-      break;
-    case "quarterhour":
-      condition = nd.getMinutes() % 15 === 0 && nd.getSeconds() === 0;
-      break;
-    default:
-      break;
-  }
-
-  return condition;
-}
 
 export default function useReminderNotification() {
   const { pending, paused } = useItems();
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      let nd = new Date();
+    if (Notification.permission === 'granted') {
+      return;
+    }
 
-      // sends a notification if reminder notifications are enabled,
-      // and todos are not completed
-      if (getTimeCondition(nd) && (pending.length > 0 || paused.length > 0)) {
+    Notification.requestPermission();
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const nd = new Date();
+      const is30MinuteInterval = nd.getMinutes() % 30 === 0 && nd.getSeconds() === 0;
+
+      if (is30MinuteInterval && (pending.length > 0 || paused.length > 0)) {
         let text = `Don't forget, you have ${pending.length +
-          paused.length} tasks to do today (${pending.length} incomplete, ${
-          paused.length
-        } paused for later)`;
+          paused.length} tasks to do today (${pending.length} incomplete, ${paused.length
+          } paused for later)`;
 
         new Notification("todometer reminder!", {
           body: text
         });
+      } else {
       }
     }, 1000);
 

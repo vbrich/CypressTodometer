@@ -22,12 +22,14 @@ function Progress() {
   }
 
   return (
-    <div className={styles.progress}>
+    <div data-testid='progress-container' className={styles.progress}>
       <div
+        data-testid='pause-progress'
         className={`${styles.progressbar} ${styles.paused}`}
         style={{ width: `${pausedPercentage * 100}%` }}
       ></div>
       <div
+        data-testid='complete-progress'
         className={`${styles.progressbar} ${styles.completed}`}
         style={{ width: `${completedPercentage * 100}%` }}
       ></div>

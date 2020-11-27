@@ -24,8 +24,8 @@ function AddItemForm() {
 
   return (
     <form className={styles.form} onSubmit={addItem}>
-      <input ref={inputRef} placeholder="Add new item" autoFocus />
-      <button type="submit" />
+      <input data-testid='add-todo-input' ref={inputRef} placeholder="Add new item" autoFocus />
+      <button data-testid='add-todo-button' type="submit" />
     </form>
   );
 }

@@ -24,50 +24,60 @@ function ItemList() {
     <div className="item-list">
       <Progress />
       <AddItemForm />
-      {pending.length > 0 ? (
-        <>
-          {pending.map(item => {
-            return <Item item={item} key={item.key} />;
-          })}
-        </>
-      ) : (
-        <div className={styles.alldone}>
-          <img src={alldone} alt="Nothing to do!" />
-        </div>
-      )}
+      <div data-testid='pending-list'>
+        {pending.length > 0 ? (
+          <>
+            {pending.map(item => {
+              return <Item item={item} key={item.key} />;
+            })}
+          </>
+        ) : (
+            <div className={styles.alldone}>
+              <img src={alldone} alt="Nothing to do!" />
+            </div>
+          )}
+      </div>
       <Accordion collapsible multiple>
-        {paused.length > 0 && (
-          <AccordionItem>
-            <AccordionButton className={styles.toggle}>
-              <img src={arrow} alt="Do Later Toggle" />
-              <span>Do Later</span>
-            </AccordionButton>
-            <AccordionPanel className={styles.panel}>
-              {paused &&
-                paused.map(item => {
-                  return <Item item={item} key={item.key} />;
-                })}
-            </AccordionPanel>
-          </AccordionItem>
-        )}
-        {completed.length > 0 && (
-          <AccordionItem>
-            <AccordionButton className={styles.toggle}>
-              <img src={arrow} alt="Completed Toggle" /> <span>Completed</span>
-            </AccordionButton>
-            <AccordionPanel className={styles.panel}>
-              {completed &&
-                completed.map(item => {
-                  return <Item item={item} key={item.key} />;
-                })}
-            </AccordionPanel>
-          </AccordionItem>
-        )}
+        <div data-testid='paused-list'>
+          {paused.length > 0 && (
+            <AccordionItem>
+              <AccordionButton className={styles.toggle}>
+                <img src={arrow} alt="Do Later Toggle" />
+                <span>Do Later</span>
+              </AccordionButton>
+              <AccordionPanel className={styles.panel}>
+                {paused &&
+                  paused.map(item => {
+                    return <Item item={item} key={item.key} />;
+                  })}
+              </AccordionPanel>
+            </AccordionItem>
+          )}
+        </div>
+        <div data-testid='completed-list'>
+          {completed.length > 0 && (
+            <AccordionItem>
+              <AccordionButton className={styles.toggle}>
+                <img src={arrow} alt="Completed Toggle" /> <span>Completed</span>
+              </AccordionButton>
+              <AccordionPanel className={styles.panel}>
+                {completed &&
+                  completed.map(item => {
+                    return <Item item={item} key={item.key} />;
+                  })}
+              </AccordionPanel>
+            </AccordionItem>
+          )}
+        </div>
+
       </Accordion>
+
+
 
       {(completed.length > 0 || paused.length > 0) && (
         <div className={styles.reset}>
           <button
+            data-testid='reset-button'
             onClick={() => {
               dispatch({ type: "RESET_ALL" });
             }}
