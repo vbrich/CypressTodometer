@@ -29,7 +29,7 @@ context('Notifications', () => {
     });
   });
 
-  it('Displays 30-minute reminder if there are pending todos', () => {
+  it('Displays next day reset notification', () => {
 
     // Stub the window.Notification object
     cy.visit(Cypress.env('baseUrl'), {
