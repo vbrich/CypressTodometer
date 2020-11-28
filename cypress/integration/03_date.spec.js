@@ -1,8 +1,9 @@
+/// <reference types="Cypress" />
+
 context('Date', () => {
   it('Displays the correct date info', () => {
     cy.clock(new Date(104907600000));
-
-    cy.reload();
+    cy.visit(Cypress.env('baseUrl'));
 
     cy.getByTestId('day').should('have.text', '29');
     cy.getByTestId('year').should('have.text', '1973');

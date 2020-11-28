@@ -1,3 +1,5 @@
+/// <reference types="Cypress" />
+
 context('Progress', () => {
   it('Displays the proper width', () => {
     cy.visit(Cypress.env('baseUrl'));
