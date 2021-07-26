@@ -1,7 +1,8 @@
 All sorts of idiotic mistakes, but essentially:
-1. Created my own repo and pushed these changes using my ribo916 user (my windows pc). The actual repo is owned by vbrich, but gave permissions to ribo916. Don't ask. 
+1. Created my own repo and pushed these changes using my ribo916 user (my windows pc). The actual repo is owned by vbrich, but gave permissions to ribo916. Then I realized I accidently just copied the entire master branch from the author. Don't ask. 
 
-
+- npm run start
+- npm run cypress
 
 
 The code here is for [This Video Tutorial](https://youtu.be/uNd9HxIHptY)
